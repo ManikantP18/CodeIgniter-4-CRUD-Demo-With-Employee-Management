@@ -93,6 +93,20 @@ class Employees extends BaseController
                 return view('addemp', array('validation' => $this->validator));
             } else {
 
+                //Checking for duplicate Emplotyee
+
+                $employeeExist = $this->EmployeeModel->query('select * from employees where is_deleted = "1" AND email = "'.$requestData['email'].'"')->getResult();
+
+                if (!empty($employeeExist)) {
+
+                    $data['success'] = false;
+                    $data['messages'] = 'Using Same Email Already Exist An Employee!';
+
+                    echo view('header');
+                    return view('addemp',$data);
+
+                }
+
                 // Uploading File
                 $img = $this->request->getFile('image');
                 $newName = $img->getRandomName();
