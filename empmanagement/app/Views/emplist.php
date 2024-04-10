@@ -21,7 +21,9 @@
     <thead>
     <tbody>
 
-    <?php foreach ($employees as $key => $value) { ?>
+    <?php if (!empty($employees)) {
+
+    foreach ($employees as $key => $value) { ?>
 
         <tr>
             <td> <img src="<?=WRITEPATH.'uploads/'.$value->image;?>" width="100px;"> </td>
@@ -37,7 +39,14 @@
             <a href="<?=base_url('/delete/'.$value->id);?>" onclick="return confirm('Are you sure you want to delete this employee')? true : false;"> Delete </a>
             </td>
         </tr>
-    <?php } ?>
+       <?php } 
+          } else { ?>
+
+          <tr>
+            <td><b> No Records Found <b></td>
+          </tr>
+            
+        <?php }?>
 
     </tbody>
 
